@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="Social Page">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <title>Social Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- <link rel="stylesheet" href="css/menu_sideslide.css"> -->
+    <link rel="stylesheet" href="css/main.css">    
+    <link rel="stylesheet" href="css/responsive.css">
+
+  </head>
+  <body>
+      
+
+    <!-- Portfolio Section -->
+    <section id="portfolios" class="section">
+      <!-- Container Starts -->
+      <div class="container">
+        <div class="section-header">          
+          <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">Social Network At one place</span></h2>
+          <hr class="lines wow zoomIn" data-wow-delay="0.3s">
+          
+        </div>
+        <div class="row">          
+          <div class="col-md-12">
+            <div class="controls text-center wow fadeInUp" data-wow-delay=".6s">
+              <a class="control mixitup-control-active btn btn-common" data-filter="all">
+                All 
+              </a>
+              <a class="control btn btn-common" data-filter=".Manual">
+                Manual 
+              </a>
+              <a class="control btn btn-common" data-filter=".Twitter">
+                Twitter
+              </a>
+              <a class="control btn btn-common" data-filter=".Instagram">
+                Instagram
+              </a>
+            </div>
+            <div id="portfolio" class="row wow fadeInUp" data-wow-delay="0.8s">
+              
+              </div>
+              <div class="col-md-12 text-center">
+              <input type="button" id="btnLoadMore" value="Load More" class="btn btn-success btn-lg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </section>
+
+    <script src="js/jquery-min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/nivo-lightbox.js"></script>
+    <script src="js/owl.carousel.min.js"></script>    
+    <script src="js/jquery.stellar.min.js"></script>    
+    <script src="js/jquery.nav.js"></script>    
+    <script src="js/smooth-scroll.js"></script>    
+    <script src="js/smooth-on-scroll.js"></script>    
+    <script src="js/wow.js"></script>    
+    <!-- <script src="js/menu.js"></script> -->
+    <script src="js/jquery.vide.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>    
+    <script src="js/jquery.magnific-popup.min.js"></script>    
+    <script src="js/waypoints.min.js"></script>    
+    <script src="js/form-validator.min.js"></script>
+    <script src="js/contact-form-script.js"></script>     
+    <script src="js/main.js"></script>
+    
+    <script type="text/javascript">
+$(document).ready(function(){
+    $('.control').click(function(){
+        $('.mix').removeClass('hide');
+        var box = $(this).attr('data-filter');
+        $(".mix:not("+box+")").addClass('hide');
+    });
+    
+    setTimeout(function(){
+function loadMore(){
+        $("#portfolio .hide").slice(0,4).removeClass("hide");
+    }
+    loadMore();
+    $("#btnLoadMore").on("click",loadMore);
+}, 1000);
+     });
+    
+     $(function() {
+
+
+   var posts = [];
+
+   $.getJSON('posts.json', function(data) {
+       $.each(data.items, function(i, f) {
+        var grid;
+
+        if(f.service_name==="Twitter"){
+
+        var grid = '<div class="hide col-sm-6 col-md-4 col-lg-4 col-xl-4 mix  Twitter">' +
+                '<div class="portfolio-item">' + 
+                  '<div class="shot-item">' +
+                  '<i class="fa fa-twitter fa-2x my-twitter"></i>'+
+                      // '<img src="'+ f.item_data.image_url +'" alt="" />'+
+                    '<h5 class="text-center username-title">'+ f.item_data.user.username +'</h5>'+ 
+                    '<p>'+ f.item_data.tweet +'</p>'+
+                  '</div>'+               
+                '</div>'+
+              '</div>'
+          } 
+          if(f.service_name==="Manual"){
+            var grid = '<div class="hide col-sm-6 col-md-4 col-lg-4 col-xl-4 mix  Manual">' +
+                '<div class="portfolio-item">' + 
+                  '<div class="shot-item">' +
+                      '<img src="'+ f.item_data.image_url +'" alt="" />'+
+                    '<p>'+ f.item_data.text +'</p>'+
+                    '<a target="_blank" href="'+f.item_data.link+'">'+ f.item_data.link_text +'</a>'+
+                  '</div>'+               
+                '</div>'+
+              '</div>'
+          }
+          if(f.service_name==="Instagram"){
+            var image_link = f.item_data.link.replace(/\/$/, "");
+            var grid = '<div class=" hide col-sm-6 col-md-4 col-lg-4 col-xl-4 mix  Instagram">' +
+                '<div class="portfolio-item">' + 
+                  '<div class="shot-item">' +
+                  '<i class="fa fa-instagram fa-2x my-insta"></i>'+
+                      '<img src="'+ f.item_data.image.thumb +'" alt="" />'+
+                      '<h5 class="text-center username-title">'+ f.item_data.user.username +'</h5>'+ 
+                      '<p>'+ f.item_data.caption + f.item_data.tags+'</p>'+
+                    
+                  '</div>'+               
+                '</div>'+
+              '</div>'
+          }
+      
+          // var tblRow = "<tr>" + "<td>" + f.service_name + "</td>" + "</tr>"
+           $(grid).appendTo("#portfolio");
+
+     });
+       
+
+   });
+
+   
+    
+    
+    
+
+});
+     
+
+     
+    </script>
+  </body>
+</html>
